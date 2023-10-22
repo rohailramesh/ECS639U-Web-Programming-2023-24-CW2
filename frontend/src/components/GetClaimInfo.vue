@@ -3,7 +3,7 @@
     <label for="claimId">Enter Claim ID:</label>
     <input type="text" id="claimId" v-model="claimId" />
     <button @click="getClaimInfo">Get Claim Info</button>
-    <p><strong>Module Name: </strong>{{ claim_info.module_name }}</p>
+    <!-- <p><strong>Module Name: </strong>{{ claim_info.module_name }}</p> -->
   </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
         }
       );
       this.claim_info = await response.json();
+
+      // using an emitter to pass the claim info to App.vue (parent class)
+      this.$emit("claim-info", this.claim_info);
     },
   },
 };

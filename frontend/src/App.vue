@@ -4,7 +4,12 @@
       API Client
     </div>
     <div class="mb-3"><u>Response data</u>:</div>
-    <GetClaimInfo />
+    <GetClaimInfo @claim-info="handleClaimInfo" />
+    <div v-if="receivedClaimInfo">
+      <p>
+        <strong>Received Claim Info:</strong>{{ receivedClaimInfo.module_name }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -14,6 +19,17 @@ import GetClaimInfo from "./components/GetClaimInfo.vue";
 export default {
   components: {
     GetClaimInfo,
+  },
+  data() {
+    return {
+      receivedClaimInfo: null,
+    };
+  },
+  methods: {
+    handleClaimInfo(claimInfo) {
+      //This method called when custom method is emiited from child component
+      this.receivedClaimInfo = claimInfo;
+    },
   },
 };
 </script>
