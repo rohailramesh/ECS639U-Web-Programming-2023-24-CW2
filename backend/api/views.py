@@ -10,6 +10,23 @@ def test_api_view(request):
     return JsonResponse({"message": "Good response!"})
 
 
+def get_all_claims(request):
+    claims = Demonstrator_Claim.objects.all()
+
+    claim_list = []
+    for claim in claims:
+        claim_dict = {
+            "id": claim.id,
+            "module_name": claim.module_name,
+            "hours_worked": claim.hours_worked,
+            "claim_form_submitted": claim.claim_form_submitted,
+            "demonstrated_date": claim.demonstrated_date,
+        }
+        claim_list.append(claim_dict)
+
+    return JsonResponse(claim_list, safe=False)
+
+
 def get_demonstration_claim(request, claim_id):
     try:
         demo_claim = Demonstrator_Claim.objects.get(id=claim_id)

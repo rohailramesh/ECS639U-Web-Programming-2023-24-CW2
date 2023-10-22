@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Edit Claim Form</h2>
+    <h2>Update Demonstrator Claim</h2>
     <form @submit.prevent="fetchOldClaimInfo">
       <label for="claimId">Enter Claim ID to Update:</label>
       <input type="text" id="claim_id" v-model="claim_id" />

@@ -1,9 +1,13 @@
 <template>
   <div>
+    <h2>Get Demonstrator Claim</h2>
     <label for="claimId">Enter Claim ID:</label>
-    <input type="text" id="claimId" v-model="claimId" />
+    <input type="text" id="claim_id" v-model="claimId" />
     <button @click="getClaimInfo">Get Claim Info</button>
-    <!-- <p><strong>Module Name: </strong>{{ claim_info.module_name }}</p> -->
+
+    <div v-if="error">
+      <p>{{ error }}</p>
+    </div>
   </div>
 </template>
 
@@ -11,28 +15,29 @@
 export default {
   data() {
     return {
-      claim_info: {},
       claimId: "",
+      error: "",
     };
   },
   methods: {
     async getClaimInfo() {
-      if (!this.claimId) {
-        return;
-      }
-      const response = await fetch(
-        `http://localhost:8000/api/demonstrator_claim/${this.claimId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      this.claim_info = await response.json();
+      this.error = ""; // Reset the error message
 
-      // using an emitter to pass the claim info to App.vue (parent class)
-      this.$emit("claim-info", this.claim_info);
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/demonstrator_claim/${this.claimId}`
+        );
+        if (response.ok) {
+          const claimInfo = await response.json();
+          this.$emit("claim-info", claimInfo); // Emit the claim info to the parent component
+        } else if (response.status === 404) {
+          this.error = "Claim not found. Please enter a valid Claim ID.";
+        } else {
+          this.error = "Failed to fetch claim information. Please try again.";
+        }
+      } catch (error) {
+        this.error = "An error occurred. Please try again.";
+      }
     },
   },
 };
