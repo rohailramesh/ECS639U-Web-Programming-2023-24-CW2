@@ -71,13 +71,6 @@ def deleteClaim(request, claim_id):
             return JsonResponse({"message": "claim not found"}, status=404)
 
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-import json
-from .models import Demonstrator_Claim
-
-
 @csrf_exempt
 def updateClaim(request, claim_id):
     try:
@@ -86,15 +79,19 @@ def updateClaim(request, claim_id):
             # Handle PUT request to update the claim form
             data = json.loads(request.body)
             new_module_name = data.get("module_name")
+            new_hours_worked = data.get("hours_worked")
+            new_claim_form_submitted = data.get("claim_form_submitted")
+            new_demonstrated_date = data.get("demonstrated_date")
 
             if new_module_name:
                 claim.module_name = new_module_name
+                claim.hours_worked = new_hours_worked
+                claim.claim_form_submitted = new_claim_form_submitted
+                claim.demonstrated_date = new_demonstrated_date
                 claim.save()
-                return JsonResponse({"message": "Module name updated successfully"})
+                return JsonResponse({"message": "Claim was updated successfully"})
             else:
-                return JsonResponse(
-                    {"error": "Module name field is required"}, status=400
-                )
+                return JsonResponse({"error": "Field is required"}, status=400)
     except Demonstrator_Claim.DoesNotExist:
         return JsonResponse({"error": "Claim form not found"}, status=404)
     except Exception as e:

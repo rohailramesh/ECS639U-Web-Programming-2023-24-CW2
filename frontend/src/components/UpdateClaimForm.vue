@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Edit Claim Form</h2>
-    <form @submit.prevent="fetchOldModuleName">
+    <form @submit.prevent="fetchOldClaimInfo">
       <label for="claimId">Enter Claim ID to Update:</label>
       <input type="text" id="claim_id" v-model="claim_id" />
       <button type="submit">Find Claim Form</button>
@@ -11,12 +11,34 @@
       <p>{{ errorMessage }}</p>
     </div>
 
-    <div v-if="old_module_name">
-      <label for="module_name">Old Module Name:</label>
-      <p>{{ old_module_name }}</p>
+    <div v-if="old_claim_info">
+      <h3>Old Claim Information:</h3>
       <form @submit.prevent="updateClaimForm">
-        <label for="newModuleName">Enter New Module Name:</label>
-        <input type="text" id="module_name" v-model="module_name" />
+        <label for="module_name">Module Name:</label>
+        <input
+          type="text"
+          id="module_name"
+          v-model="old_claim_info.module_name"
+        />
+        <label for="hours_worked">Hours Worked:</label>
+        <input
+          type="number"
+          id="hours_worked"
+          v-model="old_claim_info.hours_worked"
+        />
+        <label for="claim_form_submitted">Claim Form Submitted:</label>
+        <input
+          type="checkbox"
+          id="claim_form_submitted"
+          v-model="old_claim_info.claim_form_submitted"
+        />
+        <label for="demonstrated_date">Demonstrated Date:</label>
+        <input
+          type="date"
+          id="demonstrated_date"
+          v-model="old_claim_info.demonstrated_date"
+        />
+
         <button type="submit">Update Claim Form</button>
       </form>
     </div>
@@ -28,16 +50,15 @@ export default {
   data() {
     return {
       claim_id: "",
-      module_name: "",
-      old_module_name: "", // Store the old value
-      errorMessage: "", // Store error message
+      old_claim_info: null,
+      errorMessage: "",
     };
   },
   methods: {
-    async fetchOldModuleName() {
+    async fetchOldClaimInfo() {
       if (!this.claim_id) {
-        this.errorMessage = ""; // Reset error message if claim_id is empty
-        this.old_module_name = ""; // Reset old value if claim_id is empty
+        this.errorMessage = "";
+        this.old_claim_info = null;
         return;
       }
       try {
@@ -46,22 +67,20 @@ export default {
         );
         if (response.ok) {
           const data = await response.json();
-          this.old_module_name = data.module_name;
-          this.errorMessage = ""; // Reset error message
+          this.old_claim_info = data;
+          this.errorMessage = "";
         } else {
-          // Handle error and show an error message
           this.errorMessage = "Claim not found. Please enter a valid Claim ID.";
-          this.old_module_name = ""; // Reset old value
-          console.error("Failed to fetch old module name");
+          this.old_claim_info = null;
+          console.error("Failed to fetch old claim information");
         }
       } catch (error) {
-        // Handle any other errors
         console.error(error);
         this.errorMessage = "An error occurred. Please try again.";
       }
     },
     async updateClaimForm() {
-      if (!this.claim_id || !this.module_name) {
+      if (!this.claim_id) {
         return;
       }
       try {
@@ -72,7 +91,7 @@ export default {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ module_name: this.module_name }),
+            body: JSON.stringify(this.old_claim_info),
           }
         );
         if (response.ok) {
