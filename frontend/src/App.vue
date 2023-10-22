@@ -10,15 +10,21 @@
         <strong>Received Claim Info:</strong>{{ receivedClaimInfo.module_name }}
       </p>
     </div>
+    <add-demo-claim-vue />
+    <delete-claim-vue />
   </div>
 </template>
 
 <script>
+import AddDemoClaimVue from "./components/AddDemoClaim.vue";
+import DeleteClaimVue from "./components/DeleteClaim.vue";
 import GetClaimInfo from "./components/GetClaimInfo.vue";
 
 export default {
   components: {
     GetClaimInfo,
+    AddDemoClaimVue,
+    DeleteClaimVue,
   },
   data() {
     return {

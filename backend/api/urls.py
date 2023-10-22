@@ -15,7 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import test_api_view, get_demonstration_claim
+from .views import (
+    test_api_view,
+    get_demonstration_claim,
+    add_demonstration_claim,
+    deleteClaim,
+)
 
 
 urlpatterns = [
@@ -26,4 +31,6 @@ urlpatterns = [
         get_demonstration_claim,
         name="get_demo_claim",
     ),
+    path("addDemoClaim", add_demonstration_claim, name="addDemoClaim"),
+    path("deleteClaim/<int:claim_id>", deleteClaim, name="deleteClaim"),
 ]
