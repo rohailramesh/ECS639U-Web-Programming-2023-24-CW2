@@ -69,3 +69,35 @@ def deleteClaim(request, claim_id):
             return JsonResponse({"message": "claim deleted successfully"})
         except Demonstrator_Claim.DoesNotExist:
             return JsonResponse({"message": "claim not found"}, status=404)
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+import json
+from .models import Demonstrator_Claim
+
+
+@csrf_exempt
+def updateClaim(request, claim_id):
+    try:
+        claim = Demonstrator_Claim.objects.get(id=claim_id)
+        if request.method == "PUT":
+            # Handle PUT request to update the claim form
+            data = json.loads(request.body)
+            new_module_name = data.get("module_name")
+
+            if new_module_name:
+                claim.module_name = new_module_name
+                claim.save()
+                return JsonResponse({"message": "Module name updated successfully"})
+            else:
+                return JsonResponse(
+                    {"error": "Module name field is required"}, status=400
+                )
+    except Demonstrator_Claim.DoesNotExist:
+        return JsonResponse({"error": "Claim form not found"}, status=404)
+    except Exception as e:
+        return JsonResponse(
+            {"error": str(e)}, status=500
+        )  # Handle any other exceptions

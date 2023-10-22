@@ -20,6 +20,7 @@ from .views import (
     get_demonstration_claim,
     add_demonstration_claim,
     deleteClaim,
+    updateClaim,
 )
 
 
@@ -33,4 +34,5 @@ urlpatterns = [
     ),
     path("addDemoClaim", add_demonstration_claim, name="addDemoClaim"),
     path("deleteClaim/<int:claim_id>", deleteClaim, name="deleteClaim"),
+    path("updateClaim/<int:claim_id>", updateClaim, name="updateClaim"),
 ]

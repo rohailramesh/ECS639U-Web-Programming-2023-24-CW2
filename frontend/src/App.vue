@@ -12,6 +12,7 @@
     </div>
     <add-demo-claim-vue />
     <delete-claim-vue />
+    <update-claim-form-vue />
   </div>
 </template>
 
@@ -19,12 +20,14 @@
 import AddDemoClaimVue from "./components/AddDemoClaim.vue";
 import DeleteClaimVue from "./components/DeleteClaim.vue";
 import GetClaimInfo from "./components/GetClaimInfo.vue";
+import UpdateClaimFormVue from "./components/UpdateClaimForm.vue";
 
 export default {
   components: {
     GetClaimInfo,
     AddDemoClaimVue,
     DeleteClaimVue,
+    UpdateClaimFormVue,
   },
   data() {
     return {

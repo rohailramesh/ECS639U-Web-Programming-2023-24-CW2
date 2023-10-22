@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="deleteClaim">
+    {% csrf_token %}
     <label for="claim_id">Enter Claim Form ID:</label>
     <input type="number" id="claim_id" v-model="claim_id" required />
     <button type="submit">Delete Claim</button>
