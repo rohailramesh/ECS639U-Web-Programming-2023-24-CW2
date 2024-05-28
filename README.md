@@ -1,91 +1,73 @@
-# Template for ECS639U Individual Coursework
+# CLAIM-IT-QM
 
-This template should be used as the starting point for your individual coursework in the module ECS639U Web Programming (at Queen Mary University of London). Module leader: Paulo Oliva <[p.oliva@qmul.ac.uk](mailto:p.oliva@qmul.ac.uk)>
+## Purpose of this Project
+This project, CLAIM-IT-QM, was created as part of the ECS639U Web Programming module at Queen Mary University of London. The primary purpose of this project is to help Demonstrators within the EECS school of Queen Mary to log and keep track of their hours with a proper system in place. 
+### Mark received: 100%
 
-## Create conda environment
+## Technologies Used
+- **Backend**: Django
+- **Frontend**: Vue.js with Vite
+- **Dependencies**:
+  - Django
+  - django-cors-headers
+  - Vue.js
+  - Bootstrap
 
+## How to Run the App
+
+### Create Conda Environment
 After cloning this repository, create a conda environment for this project and activate the environment:
-
-```console
+```bash
 $ conda create --name cwindividual python=3.10
 $ conda activate cwindividual
 ```
 
-## Django backend
+### Django Backend
 
-The `backend` folder contains a [Django project](https://docs.djangoproject.com/en/stable/intro/tutorial01/) and was created with:
+1. **Navigate to the backend folder**:
+    ```bash
+    $ cd backend
+    ```
+2. **Install backend dependencies**:
+    ```bash
+    (cwindividual)$ pip install -r requirements.txt
+    ```
+3. **Start the backend server**:
+    ```bash
+    (cwindividual)$ python manage.py runserver
+    ```
+    The server will start on `http://localhost:8000`
 
-```console
-(cwindividual)$ django-admin startproject backend
-```
+### Vue Frontend
 
-### Install backend (Python) dependencies
+1. **Navigate to the frontend folder**:
+    ```bash
+    $ cd frontend
+    ```
+2. **Install frontend dependencies**:
+    ```bash
+    (cwindividual)$ npm install
+    ```
+3. **Start the frontend server**:
+    ```bash
+    (cwindividual)$ npm run dev
+    ```
+    The server will start on `http://localhost:5173`
 
-With the conda environment active, install the backend (Python) dependencies:
+## Screenshots
+Here are some screenshots of the final application:
 
-```console
-(cwindividual)$ cd backend
-(cwindividual)$ pip install -r requirements.txt
-```
+### Homepage
+![CLAIM-IT-QM Homepage](https://github.com/rohailramesh/ECS639U-Web-Programming-2023-24-CW2/blob/main/Claim_Homepage.png)
 
-The main backend dependencies (see requirements.txt) are the Django framework itself (Django) and [django-cors-headers](https://pypi.org/project/django-cors-headers/) which is needed for CORS requests (since the request origin address http://localhost:5713 is different from the address that sent the JavaScript code to the browser http://localhost:8000).
+### Add Claim
+![CLAIM-IT-QM Add Claim](https://github.com/rohailramesh/ECS639U-Web-Programming-2023-24-CW2/blob/main/Add_Claim.png)
 
-### Start backend server
+### Delete Claim
+![CLAIM-IT-QM Delete Claim](https://github.com/rohailramesh/ECS639U-Web-Programming-2023-24-CW2/blob/main/Delete_Claim.png)
 
-To start the backend server cd into the backend folder where the manage.py file is (if not already there)
+### Update Claim
+![CLAIM-IT-QM Update Claim](https://github.com/rohailramesh/ECS639U-Web-Programming-2023-24-CW2/blob/main/Update_Claim.png)
 
-```console
-(cwindividual)$ cd backend
-```
-
-and run
-
-```console
-(cwindividual)$ python manage.py runserver
-```
-
-The server will start on http://localhost:8000
-
-### API app
-
-An "api" Django app has already been created with the command
-
-```console
-$ python manage.py startapp api
-```
-
-and can be tested by visiting http://localhost:8000/api/test.json
-
-## Vue frontend
-
-The `frontend` folder contains a [Vue/Vite project](https://vitejs.dev/guide/) and was created with:
-
-```console
-(cwindividual)$ npm create vite@latest
-```
-
-### Install frontend (JavaScript) dependencies
-
-To install the frontend (JavaScript) dependencies cd into the frontend folder
-
-```console
-(cwindividual)$ cd frontend
-```
-
-and run:
-
-```console
-(cwindividual)$ npm install
-```
-
-The main frontend dependencies (see package.json) are [vue](https://vuejs.org/guide/introduction.html) and [bootstrap](https://getbootstrap.com/docs/5.0/getting-started/download/).
-
-### Start frontend server
-
-To start the frontend server run
-
-```console
-(cwindividual)$ npm run dev
-```
-
-and the server will start on http://localhost:5173
+### Find Claim
+![CLAIM-IT-QM Find Claim](https://github.com/rohailramesh/ECS639U-Web-Programming-2023-24-CW2/blob/main/Find_Claim.png)
